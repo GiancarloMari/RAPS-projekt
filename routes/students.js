@@ -25,6 +25,24 @@ router.delete('/:id', (req, res) => {
         }
     });
 });
+// Brisanje ocjene prema ID-u
+router.delete('/ocjene/:ocjenaId', (req, res) => {
+    const ocjenaId = req.params.ocjenaId;
+
+    const query = 'DELETE FROM ocjene WHERE id = ?';
+    db.query(query, [ocjenaId], (err, result) => {
+        if (err) {
+            console.error('Greška prilikom brisanja ocjene:', err.message); // Dodan ispis greške
+            res.status(500).json({ error: 'Greška prilikom brisanja ocjene.' });
+        } else if (result.affectedRows === 0) {
+            res.status(404).json({ message: 'Ocjena nije pronađena.' });
+        } else {
+            res.status(200).json({ message: 'Ocjena uspješno obrisana.', id: ocjenaId });
+        }
+    });
+});
+
+
 router.get('/:id/ocjene', (req, res) => {
     const studentId = req.params.id;
 
@@ -62,9 +80,9 @@ router.put('/ocjene/:ocjenaId', (req, res) => {
     const ocjenaId = req.params.ocjenaId;
     const { novaOcjena } = req.body;
 
-    // Provjera da je nova ocjena unesena i validna
+    // Validacija ocjene
     if (!novaOcjena || novaOcjena < 1 || novaOcjena > 5) {
-        return res.status(400).json({ message: 'Nova ocjena mora biti između 1 i 5.' });
+        return res.status(400).json({ message: 'Ocjena mora biti između 1 i 5.' });
     }
 
     const query = 'UPDATE ocjene SET ocjena = ? WHERE id = ?';
