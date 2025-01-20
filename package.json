@@ -1,0 +1,18 @@
+{
+  "name": "raps-projekt",
+  "version": "1.0.0",
+  "description": "Projekt za razvoj aplikacijskog programskog sučelja. Izrađujemo API za ocjenjivanje studenata preko baze podataka, svaki student ima svoj ID i ocjene.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mysql": "^2.18.1"
+  }
+}
